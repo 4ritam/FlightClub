@@ -3,6 +3,17 @@ import requests
 
 class FlightData:
     # This class is responsible for structuring the flight data.
-    sheety_api = "https://api.sheety.co/16276d59486a8c0fd7fc97afa9e6760a/flightDeals/prices"
-    price_list = requests.get(sheety_api).json()["prices"]
-    print(price_list)
+    def __init__(self):
+        self._apikey = "cF2gy1ug5qkKKc3jP3h0P139e0HFGum_"
+
+    def get_code(self, term):
+        header = {
+            "apikey": self._apikey
+        }
+        params = {
+            "term": term,
+            "location_types": "city"
+        }
+        url = "https://tequila-api.kiwi.com/locations/query"
+        data = requests.get(url=url, params=params, headers=header)
+        return data.json()["locations"][0]["code"]
